@@ -1,6 +1,7 @@
 (lang dune 3.16)
 
 (name vkashka)
+(version 0.1.0)
 
 (generate_opam_files true)
 
@@ -16,11 +17,13 @@
 
 (package
  (name vkashka)
- (synopsis "A minimal VK API wrapper.")
+ (synopsis "A minimal VK API wrapper")
+ (description "A small extensible library for working with the VK API")
  (depends ocaml dune lwt cohttp ppx_deriving_yojson)
  (tags
   (api vk web)))
 
 (package
  (name vkashka_lwt_unix)
+ (synopsis "A minimal VK API wrapper powered by Lwt_unix")
  (depends vkashka lwt cohttp-lwt-unix))
