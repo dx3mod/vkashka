@@ -1,0 +1,9 @@
+(library
+ (public_name vkashka)
+ (name vkashka)
+ (libraries cohttp yojson ppx_deriving_yojson ppx_deriving_yojson.runtime)
+ (preprocess
+  (pps ppx_deriving_yojson))
+ (modules_without_implementation http_backend))
+
+(include_subdirs qualified)
