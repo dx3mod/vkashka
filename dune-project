@@ -17,6 +17,10 @@
 (package
  (name vkashka)
  (synopsis "A minimal VK API wrapper.")
- (depends ocaml dune cohttp ppx_deriving_yojson)
+ (depends ocaml dune lwt cohttp ppx_deriving_yojson)
  (tags
   (api vk web)))
+
+(package
+ (name client_lwt_unix)
+ (depends vkashka lwt cohttp-lwt-unix))

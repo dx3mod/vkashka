@@ -1,0 +1,4 @@
+(library
+ (name client_lwt_unix)
+ (public_name client_lwt_unix)
+ (libraries vkashka cohttp-lwt-unix))
