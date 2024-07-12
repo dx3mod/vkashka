@@ -39,7 +39,7 @@ type basic = {
   contacts : contact list; [@default []]
   counters : counters option; [@default None]
   country : country option; [@default None]
-  crop_photo : crop_photo option; [@default None]
+  (* crop_photo : crop_photo option; [@default None] *)
   domain : string option; [@default None]
   university : int option; [@default None]
   university_name : string option; [@default None]

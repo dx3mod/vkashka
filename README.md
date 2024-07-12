@@ -16,7 +16,7 @@ $ opam pin vkashka_lwt_unix https://github.com/dx3mod/vkashka
 let token = Vkashka.access_token "YOUR_TOKEN"
 module Vk_api = Vkashka.Api (Vkashka_lwt_unix) (val token)
 
-Vk_api.Users.get_user "username"
+Vk_api.Users.(get ~user_ids:["username"] () >|= first)
 (* - : (Vkashka.User.basic, string) result = *)
 ```
 

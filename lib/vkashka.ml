@@ -23,25 +23,34 @@ module Api (Client : Http_client) (T : Token) = struct
   module Users = struct
     let endpoint = Uri.with_path base_api_uri "method/users.get"
 
-    let get ?(user_ids = []) ?(fields = []) () =
-      Uri.add_query_param endpoint ("user_ids", user_ids) |> fun uri ->
-      Uri.add_query_param uri ("fields", fields)
-      |> send_request User.users_of_yojson
+    let get ?(user_ids = []) ?(fields = []) ?name_case ?from_group_id () =
+      let uri =
+        let uri = Uri.add_query_param endpoint ("user_ids", user_ids) in
+        let uri = Uri.add_query_param uri ("fields", fields) in
+        let uri =
+          match from_group_id with
+          | None -> uri
+          | Some from_group_id ->
+              Uri.add_query_param' uri ("from_group_id", from_group_id)
+        in
+        let uri =
+          match name_case with
+          | None -> uri
+          | Some name_case ->
+              Uri.add_query_param uri ("name_case", [ name_case ])
+        in
 
-    let get_user ?(fields = []) id =
-      get ~user_ids:[ id ] ~fields ()
-      |> Lwt.map @@ function
-         | Ok [ user ] -> Ok user
-         | Ok [] -> Error "not found user"
-         | Ok _ -> failwith "???"
-         | Error e -> Error e
+        uri
+      in
+      send_request User.users_of_yojson uri
 
-    let get_user_exn ?(fields = []) id =
-      get ~user_ids:[ id ] ~fields ()
-      |> Lwt.map @@ function
-         | Ok [ user ] -> user
-         | Ok _ -> failwith "not found user"
-         | Error msg -> failwith msg
+    let first = function
+      | Ok [ user ] -> Ok user
+      | Ok [] -> Error "not found user"
+      | Ok _ -> failwith "???"
+      | Error e -> Error e
+
+    let first_exn r = first r |> Result.get_ok
   end
 
   module Wall = struct
