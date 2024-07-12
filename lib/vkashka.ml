@@ -59,17 +59,39 @@ module Api (Client : Http_client) (T : Token) = struct
       let get_by_id = Uri.with_path base_api_uri "method/wall.getById"
     end
 
-    let get id =
+    let get ?count ?offset ?filter id =
       let param =
         match id with
         | `Domain domain -> ("domain", domain)
         | `Owner_id owner_id -> ("owner_id", owner_id)
       in
 
-      Uri.add_query_param' Endpoint.get param
-      |> send_request Wall.records_of_yojson
+      let uri =
+        let uri = Uri.add_query_param' Endpoint.get param in
+        let uri =
+          Option.fold ~none:uri
+            ~some:(fun c -> Uri.add_query_param' uri ("count", c))
+            count
+        in
 
-    let get_by_ids ~owner_id ids =
+        let uri =
+          Option.fold ~none:uri
+            ~some:(fun offset -> Uri.add_query_param' uri ("offset", offset))
+            offset
+        in
+
+        let uri =
+          Option.fold ~none:uri
+            ~some:(fun filter -> Uri.add_query_param' uri ("filter", filter))
+            filter
+        in
+
+        uri
+      in
+
+      send_request Wall.records_of_yojson uri
+
+    let get_posts_by_ids ~owner_id ids =
       let params =
         List.map (fun id -> Printf.sprintf "%d_%d" owner_id id) ids
       in
@@ -77,8 +99,8 @@ module Api (Client : Http_client) (T : Token) = struct
       Uri.add_query_param Endpoint.get_by_id ("posts", params)
       |> send_request Wall.records_of_yojson
 
-    let get_by_id ~owner_id id =
-      get_by_ids ~owner_id [ id ]
+    let get_post_by_id ~owner_id id =
+      get_posts_by_ids ~owner_id [ id ]
       |> Lwt.map (Result.map @@ fun records -> List.hd Wall.(records.items))
   end
 end

@@ -28,16 +28,15 @@ Vk_api.Users.(get ~user_ids:["username"] () >|= first)
   - [x] Basic
   - [x] Optional fields A-I
   - [ ] Optional fields L-R (70%)
-- [ ] Wall
-  - [ ] Basic Record
+- [x] Basic Wall Record
 
 #### Methods 
 
-- [x] Users
+- [ ] Users
   - [x] get
-- [x] Wall
-  - [x] get
-  - [x] getById
+- [ ] Wall
+  - [x] get (partial)
+  - [x] getById (partial)
 
 ## Reference 
 

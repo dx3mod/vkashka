@@ -2,15 +2,6 @@ open Common
 open Media
 
 module Record = struct
-  type attachment = Photo of photo | Other of string
-
-  let attachment_of_yojson : Yojson.Safe.t -> _ = function
-    | `Assoc [ ("type", `String kind); (_, json) ] -> (
-        match kind with
-        | "photo" -> photo_of_yojson json |> Result.map (fun p -> Photo p)
-        | other -> Ok (Other other))
-    | _ -> Error "invalid attachment"
-
   type t = {
     id : id;
     owner_id : id;
@@ -19,7 +10,7 @@ module Record = struct
     date : unixtime;
     text : string;
     kind : string; [@key "type"]
-    attachments : attachment list; [@default []]
+    attachments : Attachment.t list; [@default []]
   }
   [@@deriving of_yojson { strict = false }]
 end
