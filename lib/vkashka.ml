@@ -3,6 +3,11 @@ module User = Models.User
 module type Http_client = Http_client.S
 module type Token = Token.S
 
+let access_token token =
+  (module struct
+    let access_token = token
+  end : Token)
+
 module Api (Client : Http_client) (T : Token) = struct
   let base_api_uri = Uri.of_string "https://api.vk.com/"
   let version = "5.199"

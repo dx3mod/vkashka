@@ -6,9 +6,8 @@
 ## Quick start
 
 ```ocaml
-module Vk_api = Vkashka.Api (Vkashka_lwt_unix) (struct
- let access_token = "TOKEN"  
-end);;
+let token = Vkashka.access_token "YOUR_TOKEN"
+module Vk_api = Vkashka.Api (Vkashka_lwt_unix) (val token)
 
 Vk_api.Users.get_user "username"
 (* - : (Vkashka.User.basic, string) result = *)
