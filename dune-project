@@ -22,5 +22,5 @@
   (api vk web)))
 
 (package
- (name client_lwt_unix)
+ (name vkashka_lwt_unix)
  (depends vkashka lwt cohttp-lwt-unix))

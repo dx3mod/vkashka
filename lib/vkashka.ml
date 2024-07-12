@@ -21,11 +21,19 @@ module Api (Client : Http_client) (T : Token) = struct
       Uri.add_query_param endpoint ("user_ids", user_ids)
       |> send_request User.basic_of_yojson
 
-    let get_user_exn ~by:id =
-      let id =
-        match id with `Id id -> string_of_int id | `Name name -> name
-      in
+    let get_user id =
+      get ~user_ids:[ id ] ()
+      |> Lwt.map @@ function
+         | Ok [ user ] -> Ok user
+         | Ok [] -> Error "not found user"
+         | Ok _ -> failwith "???"
+         | Error e -> Error e
 
-      get ~user_ids:[ id ] () |> Lwt.map (Result.map List.hd)
+    let get_user_exn id =
+      get ~user_ids:[ id ] ()
+      |> Lwt.map @@ function
+         | Ok [ user ] -> user
+         | Ok _ -> failwith "not found user"
+         | Error msg -> failwith msg
   end
 end
