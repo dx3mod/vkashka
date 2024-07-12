@@ -22,14 +22,14 @@ Vk_api.Users.get_user "username"
 
 ## Implemented
 
-#### Types
+#### Objects
 
-Basic of types.
-
-- [ ] User
+- User
   - [x] Basic
-- [ ] Wall record
-  - [x] Basic
+  - [x] Optional fields A-I
+  - [ ] Optional fields L-R (70%)
+- [ ] Wall
+  - [ ] Basic Record
 
 #### Methods 
 

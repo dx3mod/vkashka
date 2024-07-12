@@ -1,11 +1,7 @@
 open Common
+open Media
 
 module Record = struct
-  type size = { kind : string; [@key "type"] url : string }
-  [@@deriving of_yojson { strict = false }]
-
-  and photo = { sizes : size list }
-
   type attachment = Photo of photo | Other of string
 
   let attachment_of_yojson : Yojson.Safe.t -> _ = function

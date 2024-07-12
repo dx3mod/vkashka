@@ -23,20 +23,21 @@ module Api (Client : Http_client) (T : Token) = struct
   module Users = struct
     let endpoint = Uri.with_path base_api_uri "method/users.get"
 
-    let get ?(user_ids = []) () =
-      Uri.add_query_param endpoint ("user_ids", user_ids)
+    let get ?(user_ids = []) ?(fields = []) () =
+      Uri.add_query_param endpoint ("user_ids", user_ids) |> fun uri ->
+      Uri.add_query_param uri ("fields", fields)
       |> send_request User.users_of_yojson
 
-    let get_user id =
-      get ~user_ids:[ id ] ()
+    let get_user ?(fields = []) id =
+      get ~user_ids:[ id ] ~fields ()
       |> Lwt.map @@ function
          | Ok [ user ] -> Ok user
          | Ok [] -> Error "not found user"
          | Ok _ -> failwith "???"
          | Error e -> Error e
 
-    let get_user_exn id =
-      get ~user_ids:[ id ] ()
+    let get_user_exn ?(fields = []) id =
+      get ~user_ids:[ id ] ~fields ()
       |> Lwt.map @@ function
          | Ok [ user ] -> user
          | Ok _ -> failwith "not found user"
