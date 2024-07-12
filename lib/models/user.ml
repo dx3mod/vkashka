@@ -2,7 +2,7 @@
 
 open Common
 
-type basic = {
+type t = {
   id : id;
   first_name : string;
   last_name : string;
@@ -16,3 +16,5 @@ type basic = {
 (** Basic information about user. *)
 
 and deactivated = Deleted | Banned
+
+type users = t list [@@deriving of_yojson]

@@ -1,4 +1,4 @@
-type 'a t = { response : 'a list } [@@deriving of_yojson]
+type 'a t = { response : 'a } [@@deriving of_yojson]
 
 let parse_json p input =
   let parser = of_yojson p in
