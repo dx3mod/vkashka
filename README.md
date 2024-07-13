@@ -18,8 +18,8 @@ $ opam pin vkashka https://github.com/dx3mod/vkashka
 let token = Vkashka.access_token "YOUR_TOKEN"
 module Vk_api = Vkashka.Api (Cohttp_lwt_unix.Client) (val token)
 
-Vk_api.Users.(get ~user_ids:["username"] () >|= first)
-(* - : (Vkashka.User.t, string) result *)
+Vk_api.Users.(get ~user_ids:["username"] () |> first)
+(* - : Vkashka.User.t option *)
 ```
 
 ## Documentation 
