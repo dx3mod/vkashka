@@ -14,6 +14,7 @@ depends: [
   "dune" {>= "3.16"}
   "lwt"
   "cohttp"
+  "cohttp-lwt"
   "ppx_deriving_yojson"
   "odoc" {with-doc}
 ]

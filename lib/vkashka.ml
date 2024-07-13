@@ -1,7 +1,6 @@
 module User = Models.User
 module Wall = Models.Wall
 
-module type Http_client = Http_client.S
 module type Token = Token.S
 
 let access_token token =
@@ -9,7 +8,7 @@ let access_token token =
     let access_token = token
   end : Token)
 
-module Api (Client : Http_client) (T : Token) = struct
+module Api (Client : Cohttp_lwt.S.Client) (T : Token) = struct
   let version = "5.199"
 
   let base_api_uri =
@@ -18,7 +17,9 @@ module Api (Client : Http_client) (T : Token) = struct
       [ ("access_token", T.access_token); ("v", version) ]
 
   let send_request of_yojson uri =
-    Client.post uri |> Lwt.map (Response.parse_json of_yojson)
+    let open Lwt in
+    Client.post uri >>= fun (_, body) ->
+    Cohttp_lwt.Body.to_string body >|= Response.parse_json of_yojson
 
   module Users = struct
     let endpoint = Uri.with_path base_api_uri "method/users.get"

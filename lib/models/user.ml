@@ -14,7 +14,7 @@ type blacklisted = bool
 
 let blacklisted_of_yojson = int_to_bool_of_yojson ~typ:"blacklisted"
 
-type basic = {
+type t = {
   id : id;
   first_name : string;
   last_name : string;
@@ -88,4 +88,4 @@ and counters = {
 
 and crop_photo = { photo : photo }
 
-type users = basic list [@@deriving of_yojson]
+type users = t list [@@deriving of_yojson]

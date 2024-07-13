@@ -4,6 +4,7 @@
  (libraries
   lwt
   cohttp
+  cohttp-lwt
   yojson
   ppx_deriving_yojson
   ppx_deriving_yojson.runtime)
