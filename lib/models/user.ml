@@ -86,6 +86,6 @@ and counters = {
   subscriptions : int;
 }
 
-and crop_photo = { photo : photo }
+and crop_photo = { photo : Photo.t }
 
 type users = t list [@@deriving of_yojson]

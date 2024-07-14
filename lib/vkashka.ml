@@ -1,5 +1,6 @@
 module User = Models.User
 module Wall = Models.Wall
+module Media = Models.Media
 module Items = Items
 
 module type Token = Token.S
