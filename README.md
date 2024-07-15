@@ -44,6 +44,10 @@ Vk_api.Users.(get ~user_ids:["username"] () |> first)
   - [x] get (partial)
   - [x] getById (partial)
 
+## Related
+
+- [repostbot](https://github.com/dx3mod/repostbot) &mdash; real-world example
+
 ## Reference 
 
 - [VK API](https://dev.vk.com/ru/reference) official documentation 
