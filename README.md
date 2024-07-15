@@ -6,7 +6,7 @@ A small wrapper-library for the [VK] API (version 5.199). It's not complete, but
 
 ```bash
 # Installation of development version.
-$ opam pin vkashka https://github.com/dx3mod/vkashka
+$ opam pin vkashka https://github.com/dx3mod/vkashka.git
 ``` 
 
 ```ocaml
