@@ -9,7 +9,12 @@ module Video = struct
   type t = { preview : image list [@key "image"] }
   [@@deriving of_yojson { strict = false }]
 
-  and image = { height : int; width : int; url : string; with_padding : int }
+  and image = {
+    height : int;
+    width : int;
+    url : string;
+    with_padding : int; [@default 1]
+  }
 end
 
 module Attachment = struct
