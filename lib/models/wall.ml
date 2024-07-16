@@ -8,6 +8,7 @@ module Record = struct
     from_id : id;
     created_by : id option; [@default None]
     date : unixtime;
+    edited : unixtime option; [@default None]
     text : string;
     kind : string; [@key "type"]
     attachments : Attachment.t list; [@default []]
