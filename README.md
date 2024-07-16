@@ -24,7 +24,21 @@ Vk_api.Users.(get ~user_ids:["username"] () |> first)
 
 ## Documentation 
 
-- Tutorial in Russian on [ocamlportal.ru](https://ocamlportal.ru/libraries/web/vkashka)
+Lookup documentation using the [`odig`](https://github.com/b0-system/odig):
+```bash
+odig vkashka
+```
+
+Tutorial in Russian on [ocamlportal.ru](https://ocamlportal.ru/libraries/web/vkashka)
+
+
+## Related
+
+- [repostbot](https://github.com/dx3mod/repostbot) &mdash; real-world example
+
+## Reference 
+
+- [VK API](https://dev.vk.com/ru/reference) official documentation 
 
 ## Implemented
 
@@ -43,14 +57,6 @@ Vk_api.Users.(get ~user_ids:["username"] () |> first)
 - [ ] Wall
   - [x] get (partial)
   - [x] getById (partial)
-
-## Related
-
-- [repostbot](https://github.com/dx3mod/repostbot) &mdash; real-world example
-
-## Reference 
-
-- [VK API](https://dev.vk.com/ru/reference) official documentation 
 
 [VK]: https://vk.com/
 [Cohttp]: https://github.com/mirage/ocaml-cohttp
