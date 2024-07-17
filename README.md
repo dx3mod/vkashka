@@ -26,7 +26,7 @@ Vk_api.Users.(get ~user_ids:["username"] () |> first)
 
 Lookup documentation using the [`odig`](https://github.com/b0-system/odig):
 ```bash
-odig vkashka
+odig doc vkashka
 ```
 
 Tutorial in Russian on [ocamlportal.ru](https://ocamlportal.ru/libraries/web/vkashka)
