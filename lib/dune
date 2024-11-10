@@ -3,6 +3,6 @@
  (public_name vkashka)
  (libraries lwt cohttp cohttp-lwt yojson ppx_deriving_yojson.runtime)
  (preprocess
-  (pps ppx_deriving_yojson)))
+  (pps ppx_deriving_yojson ppx_deriving.show)))
 
 (include_subdirs qualified)

@@ -1,8 +1,8 @@
 module User = Models.User
 module Wall = Models.Wall
 module Media = Models.Media
-module Items = Items
 module Common = Models.Common
+module Items = Items
 
 module type Token = Token.S
 
@@ -11,7 +11,43 @@ let access_token token =
     let access_token = token
   end : Token)
 
-module Api (Client : Cohttp_lwt.S.Client) (T : Token) = struct
+module type S = sig
+  val version : string
+
+  module Users : sig
+    val first : 'a list Lwt.t -> 'a option Lwt.t
+    val first_exn : 'a list Lwt.t -> 'a Lwt.t
+
+    val get :
+      ?user_ids:string list ->
+      ?fields:string list ->
+      ?name_case:string ->
+      ?from_group_id:string ->
+      unit ->
+      User.users Lwt.t
+  end
+
+  module Wall : sig
+    val first : 'a list Lwt.t -> 'a option Lwt.t
+    val first_exn : 'a list Lwt.t -> 'a Lwt.t
+
+    module Endpoint : sig
+      val get : Uri.t
+      val get_by_id : Uri.t
+    end
+
+    val get :
+      ?count:string ->
+      ?offset:string ->
+      ?filter:string ->
+      [< `Domain of string | `Owner_id of string ] ->
+      Wall.records Lwt.t
+
+    val get_posts_by_ids : owner_id:int -> int list -> Wall.records Lwt.t
+  end
+end
+
+module Make (Client : Cohttp_lwt.S.Client) (T : Token) : S = struct
   let version = "5.199"
 
   let base_api_uri =

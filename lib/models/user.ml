@@ -3,14 +3,14 @@
 open Common
 open Media
 
-type deactivated = Deleted | Banned
+type deactivated = Deleted | Banned [@@deriving show]
 
 let deactivated_of_yojson = function
   | `String "deleted" -> Ok Deleted
   | `String "banned" -> Ok Banned
   | _ -> Error "invalid deactivated value"
 
-type blacklisted = bool
+type blacklisted = bool [@@deriving show]
 
 let blacklisted_of_yojson = int_to_bool_of_yojson ~typ:"blacklisted"
 
@@ -46,11 +46,8 @@ type t = {
   faculty : int option; [@default None]
   faculty_name : string option; [@default None]
   graduation : int option; [@default None]
-  followers_count : int option; [@default None]
-  friend_status : int option; [@default None]
-  games : string option; [@default None]
 }
-[@@deriving of_yojson { strict = false }]
+[@@deriving of_yojson { strict = false }, show]
 
 and career = {
   group_id : id;
@@ -88,4 +85,4 @@ and counters = {
 
 and crop_photo = { photo : Photo.t }
 
-type users = t list [@@deriving of_yojson]
+type users = t list [@@deriving of_yojson, show]

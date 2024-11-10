@@ -4,23 +4,28 @@ A small wrapper-library for the [VK] API (version 5.199). It's not complete, but
 
 ## Quick start
 
+Installation of development version.
 ```bash
-# Installation of development version.
 $ opam pin vkashka https://github.com/dx3mod/vkashka.git
 ``` 
 
+
+Example of use with the cohttp-lwt-unix backend:
 ```ocaml
-(* use any cohttp compatible implementation *)
-#require "cohttp-lwt-unix";;
+open Lwt.Syntax
+
+let () =
+  Lwt_main.run @@
+
+  let token = Vkashka.access_token "YOUR_TOKEN" in
+  let module Vk_api = Vkashka.Make (Cohttp_lwt_unix.Client) ((val token)) in
+
+  let* user = Vk_api.Users.(get ~user_ids:[ "username" ] () |> first_exn) in
+
+  Lwt_fmt.printf "User : %a" Vkashka.User.pp user
 ```
 
-```ocaml
-let token = Vkashka.access_token "YOUR_TOKEN"
-module Vk_api = Vkashka.Api (Cohttp_lwt_unix.Client) (val token)
-
-Vk_api.Users.(get ~user_ids:["username"] () |> first)
-(* - : Vkashka.User.t option *)
-```
+See also the [`examples/`](./examples/) directory for more references.
 
 ## Documentation 
 
