@@ -6,9 +6,8 @@ A small wrapper-library for the [VK] API (version 5.199). It's not complete, but
 
 Installation of development version.
 ```bash
-$ opam pin vkashka https://github.com/dx3mod/vkashka.git
+$ opam pin vkashka.dev https://github.com/dx3mod/vkashka.git
 ``` 
-
 
 Example of use with the cohttp-lwt-unix backend:
 ```ocaml
